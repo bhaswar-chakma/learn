@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Topic 1 OLS | Machine Learning</title>
+  <meta name="description" content="Topic 1 OLS | Machine Learning" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Topic 1 OLS | Machine Learning" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Topic 1 OLS | Machine Learning" />
+  
+  
+  
+
+<meta name="author" content="Bhaswar Chakma" />
+
+
+<meta name="date" content="2021-07-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="1" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>1</b> OLS</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ols.html"><a href="ols.html#slr"><i class="fa fa-check"></i><b>1.1</b> SLR</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ols" class="section level1" number="1">
+<h1><span class="header-section-number">Topic 1</span> OLS</h1>
+<div id="slr" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> SLR</h2>
+<p>We define our column vector of parameters <span class="math inline">\(\mathbf{w}\)</span> (<span class="math inline">\(\boldsymbol{\beta}\)</span> in econometrics):</p>
+<p><span class="math display">\[\mathbf{w} = \begin{bmatrix}
+           w_{0} \\
+           w_{1} 
+         \end{bmatrix}\]</span></p>
+<p>A single observation <span class="math inline">\(\mathbf{x_n}\)</span> is:
+<span class="math display">\[
+  \mathbf{x_n} =
+  \begin{bmatrix}
+          1 \\
+          x_{n} 
+  \end{bmatrix}
+\]</span>
+And thus the value predicted by the model can be written as:</p>
+<p><span class="math display">\[
+  f(x_n; w_0, w_1) = 
+  w_0 + w_1x_n = 
+  \begin{bmatrix}
+  w_0 &amp; w_1
+  \end{bmatrix}
+  \begin{bmatrix}
+  1 \\ x_1
+  \end{bmatrix} = 
+  \mathbf{w}^T\mathbf{x_n}
+\]</span>
+The matrix representing all the input data <span class="math inline">\(\mathbf{X}\)</span> and the column vector of
+outcomes <span class="math inline">\(\mathbf{t}\)</span> (<span class="math inline">\(\mathbf{y}\)</span> in econometrics) are:</p>
+<p><span class="math display">\[
+\mathbf{X} = 
+\begin{bmatrix}
+x_{1}^T \\
+x_{2}^T \\
+\vdots \\
+x_{N}^T
+\end{bmatrix}
+= \begin{bmatrix}
+1 &amp; x_{1} \\
+1 &amp; x_{2} \\
+\vdots &amp; \vdots\\
+1 &amp; x_{N}
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\mathbf{t} = 
+\begin{bmatrix}
+t_{1} \\
+t_{2} \\
+\vdots \\
+t_{N}
+\end{bmatrix}
+\]</span></p>
+<p>The loss function <span class="math inline">\(\mathcal{L}\)</span> becomes
+<span class="math display">\[
+\mathcal{L} = 
+\frac{1}{N}(\mathbf{t} -\mathbf{X})^T(\mathbf{t} -\mathbf{X})
+\]</span></p>
+<p>The column vector of values predicted by the function <span class="math inline">\(f(x_n; w_0, w_1)\)</span> are:</p>
+<p><span class="math display">\[\mathbf{Xw} = 
+\begin{bmatrix}
+1 &amp; x_{1} \\
+1 &amp; x_{2} \\
+\vdots &amp; \vdots \\
+1 &amp; x_{N}
+\end{bmatrix}
+\times
+\begin{bmatrix}
+  w_0 \\ w_1
+\end{bmatrix} =
+\begin{bmatrix}
+  w_0 &amp; w_1x_1 \\
+  w_0 &amp; w_1x_2 \\
+  \vdots &amp; \vdots \\
+  w_0 &amp; w_1x_N 
+ \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\underset{(N \times 2)}{\mathbf{X}} \times \underset{(2 \times 1)}{\mathbf{w}} =
+    \underset{(N \times 1)}{\mathbf{Xw}}
+\]</span>
+The column vector of residual is</p>
+<p><span class="math display">\[
+\mathbf{t} - \mathbf{Xw} = 
+\begin{bmatrix}
+  t_1 - w_0 + w_1x_1 \\
+  t_2 - w_0 + w_1x_2 \\
+  \vdots \\
+  t_N - w_0 + w_1x_N 
+ \end{bmatrix}
+\]</span></p>
+<p>The sum of squared errors can be expressed as:
+<span class="math display">\[\sum_{n=1}^{N} (t_n - (w_0 + w_1x_1))^2 \\\]</span></p>
+<p><span class="math display">\[ =
+\begin{bmatrix}
+  t_1 - (w_0 + w_1x_1) &amp;
+  t_2 - (w_0 + w_1x_2) &amp;
+  ... &amp;
+  t_N - (w_0 + w_1x_N )
+\end{bmatrix} 
+ \times
+\begin{bmatrix}
+  t_1 - (w_0 + w_1x_1) &amp; \\
+  t_2 - (w_0 + w_1x_2) &amp; \\
+  \vdots \\
+  t_N - (w_0 + w_1x_N )
+\end{bmatrix} \\
+= (\mathbf{t} - \mathbf{Xw})^T(\mathbf{t} - \mathbf{Xw})\]</span></p>
+<p>We can now write our loss function compactly with matrix notation, which produces a scalar
+<span class="math inline">\((1 \times 1)\)</span> value:</p>
+<p><span class="math display">\[
+\underset{(1 \times 1)}{\frac{1}{N}}
+\underset{(1 \times N)}{(\mathbf{t} - \mathbf{Xw})^T}
+\underset{(N \times 1)}{(\mathbf{t} - \mathbf{Xw})}
+= 
+\underset{(1 \times 1)}{\mathcal{L}}
+\]</span>
+We can expand the sum of squared errors as follows:</p>
+<p><span class="math display">\[
+(\mathbf{t} - \mathbf{Xw})^T(\mathbf{t} - \mathbf{Xw})\]</span></p>
+<p><span class="math display">\[= (\mathbf{t}^T - (\mathbf{Xw})^T)(\mathbf{t} - \mathbf{Xw})\]</span></p>
+<p><span class="math display">\[=(\mathbf{t}^T - (\mathbf{w}^T \mathbf{X}^T))(\mathbf{t} - \mathbf{Xw})\]</span></p>
+<p><span class="math display">\[\begin{equation}
+=\underset{(1 \times 1)}{\mathbf{t}^T\mathbf{t}} -
+\underset{(1 \times N)}{\mathbf{t}^T}
+\underset{(N \times 2)}{\mathbf{X}}
+\underset{(2 \times 1)}{\mathbf{w}} -
+\underset{(1 \times 2)}{\mathbf{w}^T}
+\underset{(2 \times N)}{\mathbf{X}^T}
+\underset{(N \times 1)}{\mathbf{t}} +
+\underset{(1 \times 2)}{\mathbf{w}^T}
+\underset{(2 \times N)}{\mathbf{X}^T}
+\underset{(N \times 2)}{\mathbf{X}}
+\underset{(2 \times 1)}{\mathbf{w}}
+\end{equation}\]</span></p>
+<p>Note the following:</p>
+<ul>
+<li><p>each of the term becomes <span class="math inline">\(1 \times 1\)</span></p></li>
+<li><p>the terms <span class="math inline">\(\mathbf{t}^T \mathbf{Xw}\)</span> and <span class="math inline">\(\mathbf{w}^T \mathbf{X}^T\mathbf{t}\)</span> are transposes of each other and are scalars. So they are the same value and can be combined.</p></li>
+</ul>
+<p>So, sum of squared residuals can be written as
+<span class="math display">\[\mathbf{t}^T\mathbf{t} - 2\mathbf{w}^T\mathbf{X}^T\mathbf{t} +
+\mathbf{w}^T\mathbf{X}^T\mathbf{X}\mathbf{w}\]</span></p>
+<p>Hence, the loss function becomes:</p>
+<p><span class="math display">\[\mathcal{L} = \frac{1}{N}\mathbf{t}^T\mathbf{t} - 2\mathbf{w}^T\mathbf{X}^T\mathbf{t} +
+\mathbf{w}^T\mathbf{X}^T\mathbf{X}\mathbf{w}\]</span></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Machine Learning.pdf", "Machine Learning.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

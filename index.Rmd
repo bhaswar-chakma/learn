@@ -1,0 +1,25 @@
+--- 
+title: "Machine Learning"
+author: "Bhaswar Chakma"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+#github-repo: rstudio/bookdown-demo
+#description: "This a quick reference guide to my toolbox."
+---
+
+# {-}
+
+<center>
+    <img src="https://cloud.google.com/products/ai/ml-comic-1/assets/panel_16_2x.png" width="1200" alt="rstudio lovestory logo"  />
+</center>
+
+[Source: Google ML Comic](https://cloud.google.com/products/ai/ml-comic-1/)
+
+
+
+
