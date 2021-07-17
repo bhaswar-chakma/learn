@@ -2,3 +2,8 @@ ols
 slr
 review-derivatives
 back-to-slr
+decission-trees
+boosting
+weak-learners
+the-blueprint-for-boosting
+adaboost

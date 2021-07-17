@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Machine Learning</title>
-  <meta name="description" content="Machine Learning" />
+  <title>Topic 2 Decission Trees | Machine Learning</title>
+  <meta name="description" content="Topic 2 Decission Trees | Machine Learning" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Machine Learning" />
+  <meta property="og:title" content="Topic 2 Decission Trees | Machine Learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Machine Learning" />
+  <meta name="twitter:title" content="Topic 2 Decission Trees | Machine Learning" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="ols.html"/>
 
-<link rel="next" href="ols.html"/>
 <script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -82,7 +82,12 @@
 </ul></li>
 <li class="chapter" data-level="2" data-path="decission-trees.html"><a href="decission-trees.html"><i class="fa fa-check"></i><b>2</b> Decission Trees</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="decission-trees.html"><a href="decission-trees.html#boosting"><i class="fa fa-check"></i><b>2.1</b> Boosting</a></li>
+<li class="chapter" data-level="2.1" data-path="decission-trees.html"><a href="decission-trees.html#boosting"><i class="fa fa-check"></i><b>2.1</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="decission-trees.html"><a href="decission-trees.html#weak-learners"><i class="fa fa-check"></i><b>2.1.1</b> Weak Learners</a></li>
+<li class="chapter" data-level="2.1.2" data-path="decission-trees.html"><a href="decission-trees.html#the-blueprint-for-boosting"><i class="fa fa-check"></i><b>2.1.2</b> The blueprint for boosting</a></li>
+<li class="chapter" data-level="2.1.3" data-path="decission-trees.html"><a href="decission-trees.html#adaboost"><i class="fa fa-check"></i><b>2.1.3</b> AdaBoost</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -101,26 +106,68 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Machine Learning</h1>
-<p class="author"><em>Bhaswar Chakma</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-07-17</em></p>
+<div id="decission-trees" class="section level1" number="2">
+<h1><span class="header-section-number">Topic 2</span> Decission Trees</h1>
+<div id="boosting" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Boosting</h2>
+<div id="weak-learners" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Weak Learners</h3>
+<p>It is often easy to come up with a <strong>weak classifier</strong>, one that is marginally better than random guessing:</p>
+<p><span class="math display">\[Pr(h(X)) \neq(Y) \leq \frac{1}{2} - \epsilon\]</span>
+A learning algorithm that can consistently generate such classifiers is called a <strong>weak learner</strong>.</p>
+<p><span style="color: blue;"><em>Is it possible to systematically boost the quality of a weak learner?</em></span></p>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1 class="unnumbered"></h1>
-<center>
-<img src="https://cloud.google.com/products/ai/ml-comic-1/assets/panel_16_2x.png" width="1200" alt="rstudio lovestory logo"  />
-</center>
-<p><a href="https://cloud.google.com/products/ai/ml-comic-1/">Source: Google ML Comic</a></p>
+<div id="the-blueprint-for-boosting" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> The blueprint for boosting</h3>
+<p>Given: data set <span class="math inline">\((x^{(1)}, y^{(1)}), ..., (x^{(n)}, y^{(n)})\)</span></p>
+<ul>
+<li><p>Initially give all points equal weight.</p></li>
+<li><p>Repeat for <span class="math inline">\(t = 1, 2,...\)</span>:</p>
+<ul>
+<li><p>Feed weighted data set to the weak learner, get back a weak classifier <span class="math inline">\(h_{t}\)</span></p></li>
+<li><p>Reweight data to put more emphasis on points <span class="math inline">\(h_{t}\)</span> gets wrong</p></li>
+</ul></li>
+<li><p>Combine all these <span class="math inline">\(h_{t}\)</span>’s.</p></li>
+</ul>
+</div>
+<div id="adaboost" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> AdaBoost</h3>
+<p>Data set <span class="math inline">\((x^{(1)}, y^{(1)}), ..., (x^{(n)}, y^{(n)})\)</span> labels <span class="math inline">\(y^{(i)}\in \{-1, +1\}\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Initialize <span class="math inline">\(D_{1}(i) = \frac{1}{n}\)</span> for all <span class="math inline">\(i = 1, 2,...n\)</span></p>
+<ul>
+<li>Equal weight</li>
+</ul></li>
+<li><p>For <span class="math inline">\(t = 1, 2,..., T\)</span>:</p>
+<ul>
+<li><p>Give <span class="math inline">\(D_{t}\)</span> to weak learner, get back some <span class="math inline">\(h_t: \mathcal{X} \to [-1, +1]\)</span></p></li>
+<li><p>Compute <span class="math inline">\(h_{t}\)</span>’s margin of correctness:</p></li>
+</ul></li>
+</ol>
+<p><span class="math display">\[score, r_{t} = \sum_{i = 1}^{n}D_{t}y^{(i)}h_{t}(x^{(i)}) \in [-1, +1] \\
+  \alpha_{t} = \frac{1}{2}ln \frac{1 + r_{t}}{1 - r_{t}}\]</span></p>
+<p>Note that in the above equation <span class="math inline">\(h_{t}(x^{(i)})\)</span> is the prediction. When prediction is correct the term <span class="math inline">\(y^{(i)}h_{t}(x^{(i)})\)</span> becomes <span class="math inline">\(`+ 1\)</span>; when incorrect it becomes <span class="math inline">\(- 1\)</span>.</p>
+<p>Update weights: <span class="math display">\[D_{t+1}(i)\propto D_{t}(i)e^{-\alpha_{t}y^{(i)}h_{t}(x^{(i)})}\]</span></p>
+<ul>
+<li><p>when correct: weights on data get reduced</p></li>
+<li><p>when incorrect: increased weights on data points</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Final classifier: <span class="math display">\[H(x) = sign(\sum_{t = 1}^{T}\alpha_{t}h_{t}(x))\]</span></li>
+</ol>
+<p><img src="images/boosting1.PNG" width="566" />
+<img src="images/boosting2.PNG" width="550" /></p>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="ols.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="ols.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
